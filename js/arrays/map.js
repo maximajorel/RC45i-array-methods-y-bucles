@@ -91,11 +91,20 @@ const paisesLatinoamerica = [
     capital: "Asunción",
   },
 ];
+// Romper referencia entre arrays y objetos
+// !Se mantiene referencias
+// const array2 = array1;
 
+// ?Se rompe la referencia
+// const array2 = array1.map((val) => val);
+// const array2 = array1.slice();
+// const array2 = [ ...array1 ];
+
+const array2 = Array.from(array1);
 const arrayModificado = paisesLatinoamerica.map(function (pais) {
   const nameUppercase = pais.nombre.toUpperCase();
   const pop = new Intl.NumberFormat("es-AR", {
-    compactDisplay: "short",
+    notation: "compact",
   });
   return {
     nombre: nameUppercase,
