@@ -129,16 +129,20 @@ const paisesLatinoamerica = [
 const tableBodyHTML = document.getElementById("tableBody");
 
 function renderizarTabla(arrayDePaises) {
-  arrayDePaises.forEach((algo, index) => {
+  arrayDePaises.forEach((pais, index) => {
     const posicion = String(index + 1).padStart(2, "0");
-    // document.write(`${posicion} - ${algo.nombre} <br>`)
 
     tableBodyHTML.innerHTML += `<tr>
                                           <th scope="row">${posicion}</th>
-                                          <td>${algo.nombre}</td>
-                                          <td>${algo.capital}</td>
-                                          <td>${algo.habitantes}</td>
-                                          <td>${algo.ubicacion}</td>
+                                          <td>${pais.nombre}</td>
+                                          <td>${pais.capital}</td>
+                                          <td>${pais.habitantes}</td>
+                                          <td>${pais.ubicacion}</td>
+                                          <td>
+                                          <button class="btn btn-danger" >
+                                          <i class="fa-solid fa-trash"></i>
+                                          </button>
+                                          </td>
                                       </tr>`;
   });
 }
@@ -158,29 +162,10 @@ function aplicarFiltroNombre(evtDesdeHTML) {
   tableBodyHTML.innerHTML = "";
   renderizarTabla(paisesFiltrados);
 }
+
+function borrarPais(indice) {
+  paisesLatinoamerica.splice(indice, 1);
+  renderizarTabla(paisesLatinoamerica);
+}
+
 renderizarTabla(paisesLatinoamerica);
-// function filtrarPaises() {
-//   tableBodyHTML.innerHTML = "";
-//   const paisesFiltrados = paisesLatinoamerica.filter(function (pais) {
-//     if (pais.habitantes >= 15000000) {
-//       return true;
-//     }
-//     return false;
-//   });
-
-//   renderizarTabla(paisesFiltrados);
-// }
-
-// const numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-// const numerosPares = numeros.filter(function (numero) {
-//   //   return numero % 2 === 0;
-//   if (numero % 2 === 0) {
-//     return true;
-//   }
-//   return false;
-// });
-
-// const numerosImpares = numeros.filter((impar) => impar % 2 !== 0);
-
-// console.log(numerosPares);
-// console.log(numerosImpares);
