@@ -126,6 +126,7 @@ const paisesLatinoamerica = [
     capital: "Paramaribo",
   },
 ];
+let copiaArray = Array.from(paisesLatinoamerica);
 const tableBodyHTML = document.getElementById("tableBody");
 
 function renderizarTabla(arrayDePaises) {
@@ -139,21 +140,23 @@ function renderizarTabla(arrayDePaises) {
                                           <td>${pais.habitantes}</td>
                                           <td>${pais.ubicacion}</td>
                                           <td>
-                                          <button class="btn btn-danger" >
+                                          <button class="btn btn-danger" onclick="borrarPais(${index})">
                                           <i class="fa-solid fa-trash"></i>
                                           </button>
                                           </td>
                                       </tr>`;
   });
 }
+// renderizarTabla(paisesLatinoamerica);
 
 function pintarPaisesOriginales() {
   tableBodyHTML.innerHTML = "";
-  renderizarTabla(paisesLatinoamerica);
+  copiaArray = Array.from(paisesLatinoamerica);
+  renderizarTabla(copiaArray);
 }
-function aplicarFiltroNombre(evtDesdeHTML) {
+function aplicarFiltro(evtDesdeHTML) {
   const valorFiltro = evtDesdeHTML.target.value.toLowerCase();
-  const paisesFiltrados = paisesLatinoamerica.filter(function (pais) {
+  const paisesFiltrados = copiaArray.filter(function (pais) {
     const nombrePais = pais.nombre.toLowerCase();
     if (nombrePais.includes(valorFiltro)) {
       return true;
@@ -164,8 +167,20 @@ function aplicarFiltroNombre(evtDesdeHTML) {
 }
 
 function borrarPais(indice) {
-  paisesLatinoamerica.splice(indice, 1);
-  renderizarTabla(paisesLatinoamerica);
+  copiaArray.splice(indice, 1);
+  tableBodyHTML.innerHTML = "";
+  renderizarTabla(copiaArray);
 }
+renderizarTabla(copiaArray);
 
-renderizarTabla(paisesLatinoamerica);
+function calcularPoblacionTotal(listaPaises) {
+  const acumuladoTotal = listaPaises.reduce((acumulador, pais) => {
+    console.log(acumulador);
+    acumulador += pais.habitantes;
+    return acumulador;
+  }, 0);
+  const populationCell = document.getElementById("total");
+  populationCell.innerText = acumuladoTotal;
+  console.log(acumuladoTotal);
+}
+calcularPoblacionTotal(copiaArray);
